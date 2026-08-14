@@ -173,6 +173,27 @@ function hobbies(data: CvData, color: string): string {
   </section>`;
 }
 
+function contactIcon(name: "mail" | "phone" | "pin", color: string): string {
+  const paths =
+    name === "mail"
+      ? `<rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`
+      : name === "phone"
+        ? `<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`
+        : `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="10" r="3" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>`;
+  return `<svg viewBox="0 0 24 24" style="width:11px;height:11px;flex-shrink:0;vertical-align:-1px;" aria-hidden="true">${paths}</svg>`;
+}
+
+function contactLineWithIcon(
+  value: string,
+  icon: "mail" | "phone" | "pin",
+  color: string
+): string {
+  return `<p style="display:flex;align-items:center;gap:6px;margin:0 0 6px;word-break:break-all;">${contactIcon(
+    icon,
+    color
+  )}<span>${esc(value)}</span></p>`;
+}
+
 function photoCircle(data: CvData, size: string, style: string): string {
   if (!data.personalInfo.photo) return "";
   return `<div style="width:${size};height:${size};overflow:hidden;border-radius:9999px;${style}">
@@ -185,7 +206,7 @@ function sidebarHtml(data: CvData): string {
   const name = fullName(data) || "Prénom Nom";
   const info = data.personalInfo;
   return `<div id="cv-preview" style="display:flex;width:210mm;min-height:297mm;background:#fff;color:#1e293b;font-family:${SANS};">
-    <aside style="width:70mm;background:#0f172a;color:#f1f5f9;padding:32px 24px;flex-shrink:0;">
+    <aside style="width:30%;background:#0f172a;color:#f1f5f9;padding:32px 24px;flex-shrink:0;">
       <div style="width:112px;height:112px;margin:0 auto 24px;overflow:hidden;border-radius:9999px;border:4px solid #334155;background:#1e293b;">
         ${
           info.photo
@@ -206,22 +227,28 @@ function sidebarHtml(data: CvData): string {
         }
       </div>
       <div style="margin-top:32px;font-size:11px;">
-        ${sectionHeading("Contact", color, "0.08em")}
+        <h2 style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${color};margin:0 0 10px;">
+          ${contactIcon("mail", color)}Contact
+        </h2>
         ${
           info.email
-            ? `<p style="margin:0 0 6px;word-break:break-all;">${esc(
-                info.email
-              )}</p>`
+            ? contactLineWithIcon(info.email, "mail", "#f1f5f9")
             : ""
         }
-        ${info.phone ? `<p style="margin:0 0 6px;">${esc(info.phone)}</p>` : ""}
+        ${
+          info.phone
+            ? contactLineWithIcon(info.phone, "phone", "#f1f5f9")
+            : ""
+        }
         ${
           [info.address, info.postalCode, info.city].filter(Boolean).length
-            ? `<p style="margin:0;">${esc(
+            ? contactLineWithIcon(
                 [info.address, info.postalCode, info.city]
                   .filter(Boolean)
-                  .join(" ")
-              )}</p>`
+                  .join(" "),
+                "pin",
+                "#f1f5f9"
+              )
             : ""
         }
       </div>
