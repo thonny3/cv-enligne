@@ -2,6 +2,7 @@
 
 import { CvData } from "../types";
 import { formatDate } from "../format";
+import { BulletList } from "../ui";
 
 export function MinimalTemplate({ data }: { data: CvData }) {
   const { personalInfo: info } = data;
@@ -60,9 +61,10 @@ export function MinimalTemplate({ data }: { data: CvData }) {
                   {[exp.company, exp.location].filter(Boolean).join(" · ")}
                 </p>
                 {exp.description && (
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600 whitespace-pre-line">
-                    {exp.description}
-                  </p>
+                  <BulletList
+                    text={exp.description}
+                    className="mt-1 text-sm leading-relaxed text-slate-600"
+                  />
                 )}
               </div>
             ))}

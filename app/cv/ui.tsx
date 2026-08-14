@@ -55,6 +55,21 @@ export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement
   );
 }
 
+export function BulletList({ text, className }: { text: string; className?: string }) {
+  const lines = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length === 0) return null;
+  return (
+    <ul className={`${className ?? ""} list-disc space-y-1 pl-4 text-justify`}>
+      {lines.map((line, i) => (
+        <li key={i}>{line}</li>
+      ))}
+    </ul>
+  );
+}
+
 export function IconButton({
   onClick,
   label,

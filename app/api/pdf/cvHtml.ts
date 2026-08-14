@@ -39,6 +39,24 @@ function sectionHeading(text: string, color: string, spacing = "0.15em"): string
   return `<h2 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:${spacing};color:${color};margin:0 0 10px;">${text}</h2>`;
 }
 
+function bulletList(text: string, textColor: string): string {
+  const lines = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length === 0) return "";
+  return `<ul style="margin:4px 0 0;padding-left:16px;list-style:disc;color:${textColor};">
+    ${lines
+      .map(
+        (line) =>
+          `<li style="font-size:12px;color:${textColor};margin-bottom:2px;line-height:1.5;text-align:justify;">${esc(
+            line
+          )}</li>`
+      )
+      .join("")}
+  </ul>`;
+}
+
 function experienceBlock(
   data: CvData,
   color: string,
@@ -70,9 +88,7 @@ function experienceBlock(
         }
         ${
           exp.description
-            ? `<p style="font-size:12px;margin:4px 0 0;color:#475569;white-space:pre-line;">${esc(
-                exp.description
-              )}</p>`
+            ? bulletList(exp.description, "#475569")
             : ""
         }
       </div>`;
