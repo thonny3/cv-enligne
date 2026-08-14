@@ -28,7 +28,7 @@ export function Editor() {
           </div>
           <div
             id="cv-preview-panel"
-            className="sticky top-16 hidden h-[calc(100vh-4rem)] flex-1 overflow-y-auto bg-slate-100 px-6 py-8 lg:block"
+            className="sticky top-16 hidden h-[calc(100vh-4rem)] flex-1 overflow-y-auto bg-slate-200 px-6 py-8 lg:block"
           >
             <div className="preview-scale-wrapper origin-top">
               <Preview />

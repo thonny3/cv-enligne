@@ -16,19 +16,34 @@ import { AiryTemplate } from "./templates/AiryTemplate";
 export function Preview() {
   const { data } = useCv();
 
+  const template =
+    data.theme.template === "classic" ? (
+      <ClassicTemplate data={data} />
+    ) : data.theme.template === "minimal" ? (
+      <MinimalTemplate data={data} />
+    ) : data.theme.template === "sidebar" ? (
+      <SidebarTemplate data={data} />
+    ) : data.theme.template === "modern" ? (
+      <ModernTemplate data={data} />
+    ) : data.theme.template === "teal" ? (
+      <TealTemplate data={data} />
+    ) : data.theme.template === "chrono" ? (
+      <ChronologicalTemplate data={data} />
+    ) : data.theme.template === "functional" ? (
+      <FunctionalTemplate data={data} />
+    ) : data.theme.template === "timeline" ? (
+      <TimelineTemplate data={data} />
+    ) : data.theme.template === "creative" ? (
+      <CreativeTemplate data={data} />
+    ) : data.theme.template === "twocol" ? (
+      <TwoColumnTemplate data={data} />
+    ) : (
+      <AiryTemplate data={data} />
+    );
+
   return (
     <div id="cv-preview" className="mx-auto w-fit bg-white shadow-xl">
-      {data.theme.template === "classic" && <ClassicTemplate data={data} />}
-      {data.theme.template === "minimal" && <MinimalTemplate data={data} />}
-      {data.theme.template === "sidebar" && <SidebarTemplate data={data} />}
-      {data.theme.template === "modern" && <ModernTemplate data={data} />}
-      {data.theme.template === "teal" && <TealTemplate data={data} />}
-      {data.theme.template === "chrono" && <ChronologicalTemplate data={data} />}
-      {data.theme.template === "functional" && <FunctionalTemplate data={data} />}
-      {data.theme.template === "timeline" && <TimelineTemplate data={data} />}
-      {data.theme.template === "creative" && <CreativeTemplate data={data} />}
-      {data.theme.template === "twocol" && <TwoColumnTemplate data={data} />}
-      {data.theme.template === "airy" && <AiryTemplate data={data} />}
+      {template}
     </div>
   );
 }
