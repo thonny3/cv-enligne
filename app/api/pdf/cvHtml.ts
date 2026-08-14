@@ -259,13 +259,16 @@ function sidebarHtml(data: CvData): string {
               ${data.skills
                 .map(
                   (s) =>
-                    `<p style="margin:0 0 6px;">${esc(
-                      s.name
-                    )}</p><div style="margin-bottom:8px;">${levelDots(
-                      s.level,
-                      color,
-                      "#334155"
-                    )}</div>`
+                    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+                      <p style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(
+                        s.name
+                      )}</p>
+                      <div style="flex-shrink:0;">${levelDots(
+                        s.level,
+                        color,
+                        "#334155"
+                      )}</div>
+                    </div>`
                 )
                 .join("")}
             </div>`
