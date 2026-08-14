@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useCv } from "./CvContext";
 
@@ -44,8 +46,16 @@ export function Toolbar() {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-6 backdrop-blur">
       <div className="flex items-center gap-2">
-        <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600" />
-        <span className="text-sm font-semibold text-slate-900">Créateur de CV</span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo_cv_ko.png"
+              alt="Logo cv ko"
+              width={80}
+              height={80}
+              className="h-20 w-20 object-contain"
+            />
+            <span className="text-sm font-semibold text-slate-900">cv ko</span>
+          </Link>
       </div>
       <button
         type="button"

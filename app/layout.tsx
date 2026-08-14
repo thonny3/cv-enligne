@@ -13,14 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Créateur de CV",
-  description: "Créez votre CV en ligne gratuitement",
+  title: "cv ko — Créez votre CV en ligne gratuitement",
+  description:
+    "Créez, personnalisez et téléchargez votre CV professionnel au format PDF. 11 modèles, aperçu en temps réel, sans inscription.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
