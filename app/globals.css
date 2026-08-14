@@ -24,3 +24,61 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.preview-scale-wrapper {
+  transform: scale(0.8);
+}
+
+.print-cv-page {
+  margin: 0 auto;
+  background: #fff;
+}
+
+@media print {
+  .print-cv-page {
+    margin: 0;
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #cv-preview,
+  #cv-preview * {
+    visibility: visible;
+  }
+
+  .preview-scale-wrapper {
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  #cv-preview-panel {
+    display: block !important;
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  #cv-preview {
+    margin: 0 !important;
+    box-shadow: none !important;
+    width: 210mm !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
