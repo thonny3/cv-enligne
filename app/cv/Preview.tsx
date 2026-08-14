@@ -17,7 +17,7 @@ export function Preview() {
   const { data } = useCv();
 
   return (
-    <div id="cv-preview" className="mx-auto bg-white shadow-xl">
+    <div id="cv-preview" className="mx-auto w-fit bg-white shadow-xl">
       {data.theme.template === "classic" && <ClassicTemplate data={data} />}
       {data.theme.template === "minimal" && <MinimalTemplate data={data} />}
       {data.theme.template === "sidebar" && <SidebarTemplate data={data} />}
