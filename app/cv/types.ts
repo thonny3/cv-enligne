@@ -49,7 +49,7 @@ export type Hobby = {
   name: string;
 };
 
-export type TemplateId = "sidebar" | "classic" | "minimal";
+export type TemplateId = "sidebar" | "classic" | "minimal" | "modern" | "teal";
 
 export type Theme = {
   template: TemplateId;
@@ -60,6 +60,8 @@ export const templates: { id: TemplateId; label: string }[] = [
   { id: "sidebar", label: "Barre latérale" },
   { id: "classic", label: "Classique" },
   { id: "minimal", label: "Minimal" },
+  { id: "modern", label: "Moderne" },
+  { id: "teal", label: "Arrondi" },
 ];
 
 export const accentColors = [

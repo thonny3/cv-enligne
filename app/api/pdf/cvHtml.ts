@@ -149,31 +149,35 @@ function skillsLanguages(data: CvData, color: string): string {
   const skills = data.skills.length
     ? `<section>
         ${sectionHeading("Compétences", color)}
-        <ul style="list-style:none;margin:0;padding:0;">
+        <div style="display:flex;flex-wrap:wrap;gap:6px 14px;">
           ${data.skills
             .map(
               (s) =>
-                `<li style="font-size:13px;color:#475569;margin-bottom:4px;">${esc(
+                `<span style="display:inline-flex;align-items:center;font-size:13px;color:#475569;white-space:nowrap;">
+                  <span style="width:6px;height:6px;border-radius:9999px;background:${color};margin-right:6px;"></span>${esc(
                   s.name
-                )}</li>`
+                )}
+                </span>`
             )
             .join("")}
-        </ul>
+        </div>
       </section>`
     : "";
   const languages = data.languages.length
     ? `<section>
         ${sectionHeading("Langues", color)}
-        <ul style="list-style:none;margin:0;padding:0;">
+        <div style="display:flex;flex-wrap:wrap;gap:6px 14px;">
           ${data.languages
             .map(
               (l) =>
-                `<li style="font-size:13px;color:#475569;margin-bottom:4px;">${esc(
+                `<span style="display:inline-flex;align-items:center;font-size:13px;color:#475569;white-space:nowrap;">
+                  <span style="width:6px;height:6px;border-radius:9999px;background:${color};margin-right:6px;"></span>${esc(
                   l.name
-                )}</li>`
+                )}
+                </span>`
             )
             .join("")}
-        </ul>
+        </div>
       </section>`
     : "";
   return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:0 0 24px;">${skills}${languages}</div>`;
@@ -421,13 +425,205 @@ function minimalHtml(data: CvData): string {
   </div>`;
 }
 
+function modernHtml(data: CvData): string {
+  const color = data.theme.color;
+  const name = fullName(data) || "Prénom Nom";
+  const info = data.personalInfo;
+  const contact = [
+    info.email,
+    info.phone,
+    [info.address, info.postalCode, info.city].filter(Boolean).join(" "),
+  ].filter(Boolean);
+
+  const asideList = (title: string, items: string[]): string => {
+    if (items.length === 0) return "";
+    return `<div style="margin:0 0 24px;">
+      ${sectionHeading(title, color)}
+      <ul style="list-style:none;margin:0;padding:0;">
+        ${items
+          .map(
+            (item) =>
+              `<li style="font-size:14px;color:#475569;margin-bottom:4px;">${esc(
+                item
+              )}</li>`
+          )
+          .join("")}
+      </ul>
+    </div>`;
+  };
+
+  return `<div id="cv-preview" style="width:210mm;min-height:297mm;background:#fff;color:#1e293b;font-family:${SANS};">
+    <header style="display:flex;align-items:center;gap:24px;padding:32px 40px;background:#0f172a;color:#fff;">
+      ${photoCircle(data, "96px", `border-radius:12px;border:2px solid ${color};flex-shrink:0;`)}
+      <div>
+        <h1 style="font-size:24px;font-weight:700;margin:0;">${esc(name)}</h1>
+        ${
+          info.jobTitle
+            ? `<p style="font-size:14px;font-weight:500;margin:4px 0 0;color:${color};">${esc(
+                info.jobTitle
+              )}</p>`
+            : ""
+        }
+        ${
+          contact.length
+            ? `<div style="display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:12px;font-size:11px;color:#cbd5e1;">${contact
+                .map((c) => `<span>${esc(c)}</span>`)
+                .join("")}</div>`
+            : ""
+        }
+      </div>
+    </header>
+    <div style="display:flex;">
+      <main style="flex:1;padding:28px 32px;">
+        ${
+          data.profile
+            ? `<section style="margin:0 0 24px;">
+                ${sectionHeading("Profil", color)}
+                <p style="font-size:14px;line-height:1.6;color:#475569;margin:0;">${esc(
+                  data.profile
+                )}</p>
+              </section>`
+            : ""
+        }
+        ${experienceBlock(data, color)}
+        ${educationBlock(data, color)}
+      </main>
+      <aside style="width:62mm;flex-shrink:0;border-left:1px solid #f1f5f9;padding:28px 24px;">
+        ${asideList("Compétences", data.skills.map((s) => s.name))}
+        ${asideList("Langues", data.languages.map((l) => l.name))}
+        ${asideList("Loisirs", data.hobbies.map((h) => h.name))}
+      </aside>
+    </div>
+  </div>`;
+}
+
+function tealHtml(data: CvData): string {
+  const color = data.theme.color;
+  const name = fullName(data) || "Prénom Nom";
+  const info = data.personalInfo;
+  const address = [info.address, info.postalCode, info.city]
+    .filter(Boolean)
+    .join(" ");
+
+  const asideHeading = (text: string): string =>
+    `<h2 style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:rgba(255,255,255,0.8);margin:0 0 8px;">${text}</h2>`;
+
+  return `<div id="cv-preview" style="display:flex;width:210mm;min-height:297mm;background:#fff;color:#1e293b;font-family:${SANS};">
+    <aside style="position:relative;width:68mm;flex-shrink:0;overflow:hidden;background:${color};color:#fff;padding:36px 24px;display:flex;flex-direction:column;align-items:center;">
+      <div style="width:112px;height:112px;margin-bottom:16px;overflow:hidden;border-radius:9999px;border:4px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);">
+        ${
+          info.photo
+            ? `<img src="${esc(info.photo)}" alt="" style="width:100%;height:100%;object-fit:cover;" />`
+            : ""
+        }
+      </div>
+      <h1 style="font-size:18px;font-weight:700;line-height:1.25;text-align:center;margin:0;">${esc(
+        name
+      )}</h1>
+      ${
+        info.jobTitle
+          ? `<p style="font-size:14px;text-align:center;color:rgba(255,255,255,0.85);margin:4px 0 0;">${esc(
+              info.jobTitle
+            )}</p>`
+          : ""
+      }
+      <div style="width:100%;margin-top:32px;font-size:11px;">
+        ${asideHeading("Contact")}
+        ${
+          info.email
+            ? `<p style="margin:0 0 8px;word-break:break-all;">${esc(
+                info.email
+              )}</p>`
+            : ""
+        }
+        ${info.phone ? `<p style="margin:0 0 8px;">${esc(info.phone)}</p>` : ""}
+        ${address ? `<p style="margin:0;">${esc(address)}</p>` : ""}
+      </div>
+      ${
+        data.skills.length
+          ? `<div style="width:100%;margin-top:32px;font-size:11px;">
+              ${asideHeading("Compétences")}
+              ${data.skills
+                .map(
+                  (s) =>
+                    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+                      <p style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(
+                        s.name
+                      )}</p>
+                      <div style="flex-shrink:0;">${levelDots(
+                        s.level,
+                        "#ffffff",
+                        "rgba(255,255,255,0.3)"
+                      )}</div>
+                    </div>`
+                )
+                .join("")}
+            </div>`
+          : ""
+      }
+      ${
+        data.languages.length
+          ? `<div style="width:100%;margin-top:32px;font-size:11px;">
+              ${asideHeading("Langues")}
+              ${data.languages
+                .map(
+                  (l) =>
+                    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+                      <p style="margin:0;">${esc(l.name)}</p>
+                      <div>${levelDots(
+                        l.level,
+                        "#ffffff",
+                        "rgba(255,255,255,0.3)"
+                      )}</div>
+                    </div>`
+                )
+                .join("")}
+            </div>`
+          : ""
+      }
+      ${
+        data.hobbies.length
+          ? `<div style="width:100%;margin-top:32px;font-size:11px;">
+              ${asideHeading("Loisirs")}
+              <p style="margin:0;">${esc(
+                data.hobbies.map((h) => h.name).filter(Boolean).join(", ")
+              )}</p>
+            </div>`
+          : ""
+      }
+      <div
+        style="position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:9999px;background:rgba(255,255,255,0.1);"
+        aria-hidden="true"
+      ></div>
+    </aside>
+    <main style="flex:1;padding:36px 32px;">
+      ${
+        data.profile
+          ? `<section style="margin:0 0 28px;">
+              ${sectionHeading("Profil", color)}
+              <p style="font-size:14px;line-height:1.6;color:#475569;margin:0;">${esc(
+                data.profile
+              )}</p>
+            </section>`
+          : ""
+      }
+      ${experienceBlock(data, color)}
+      ${educationBlock(data, color)}
+    </main>
+  </div>`;
+}
+
 export function buildPdfHtml(data: CvData): string {
   const body =
     data.theme.template === "classic"
       ? classicHtml(data)
       : data.theme.template === "minimal"
         ? minimalHtml(data)
-        : sidebarHtml(data);
+        : data.theme.template === "modern"
+          ? modernHtml(data)
+          : data.theme.template === "teal"
+            ? tealHtml(data)
+            : sidebarHtml(data);
 
   return `<!DOCTYPE html>
 <html>

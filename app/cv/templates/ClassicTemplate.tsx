@@ -100,27 +100,33 @@ export function ClassicTemplate({ data }: { data: CvData }) {
         <div className="grid grid-cols-2 gap-8">
           {data.skills.length > 0 && (
             <section>
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider" style={{ color }}>
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider" style={{ color }}>
                 Compétences
               </h2>
-              <ul className="space-y-1 text-sm text-slate-600">
+              <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {data.skills.map((s) => (
-                  <li key={s.id}>{s.name}</li>
+                  <span key={s.id} className="flex items-center text-sm text-slate-600">
+                    <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} />
+                    {s.name}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </section>
           )}
 
           {data.languages.length > 0 && (
             <section>
-              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider" style={{ color }}>
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider" style={{ color }}>
                 Langues
               </h2>
-              <ul className="space-y-1 text-sm text-slate-600">
+              <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {data.languages.map((l) => (
-                  <li key={l.id}>{l.name}</li>
+                  <span key={l.id} className="flex items-center text-sm text-slate-600">
+                    <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} />
+                    {l.name}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </section>
           )}
         </div>

@@ -94,6 +94,37 @@ function TemplateThumbnail({ id, color }: { id: string; color: string }) {
       </div>
     );
   }
+  if (id === "modern") {
+    return (
+      <div className="flex h-full w-full flex-col">
+        <div className="h-2/5 w-full" style={{ backgroundColor: "#0f172a" }} />
+        <div className="flex flex-1">
+          <div className="flex-1 space-y-1 p-1.5">
+            <div className="h-1 w-full rounded bg-slate-200" />
+            <div className="h-1 w-full rounded bg-slate-200" />
+          </div>
+          <div className="w-1/3 space-y-1 border-l border-slate-100 p-1.5">
+            <div className="h-1 w-full rounded" style={{ backgroundColor: color }} />
+            <div className="h-1 w-full rounded bg-slate-200" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (id === "teal") {
+    return (
+      <div className="flex h-full w-full">
+        <div className="flex h-full w-2/5 items-center justify-center" style={{ backgroundColor: color }}>
+          <div className="h-4 w-4 rounded-full border border-white/70" />
+        </div>
+        <div className="flex-1 space-y-1 p-1.5">
+          <div className="h-1.5 w-3/4 rounded" style={{ backgroundColor: color }} />
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="h-1 w-full rounded bg-slate-200" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="h-full w-full space-y-1 p-1.5">
       <div className="h-1.5 w-2/3 rounded" style={{ backgroundColor: color }} />
