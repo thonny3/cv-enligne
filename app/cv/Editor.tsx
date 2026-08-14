@@ -17,7 +17,7 @@ export function Editor() {
       <div className="flex min-h-screen flex-col bg-slate-50">
         <Toolbar />
         <div className="flex flex-1">
-          <div className="w-full max-w-xl space-y-6 overflow-y-auto px-6 py-8 lg:w-1/2">
+          <div className="h-[calc(100vh-4rem)] w-full max-w-xl space-y-6 overflow-y-auto px-6 py-8 lg:w-1/2">
             <ThemePicker />
             <PersonalInfoForm />
             <ProfileForm />
@@ -28,7 +28,7 @@ export function Editor() {
           </div>
           <div
             id="cv-preview-panel"
-            className="hidden flex-1 overflow-y-auto bg-slate-100 px-6 py-8 lg:block"
+            className="sticky top-16 hidden h-[calc(100vh-4rem)] flex-1 overflow-y-auto bg-slate-100 px-6 py-8 lg:block"
           >
             <div className="preview-scale-wrapper origin-top">
               <Preview />
