@@ -49,7 +49,18 @@ export type Hobby = {
   name: string;
 };
 
-export type TemplateId = "sidebar" | "classic" | "minimal" | "modern" | "teal";
+export type TemplateId =
+  | "sidebar"
+  | "classic"
+  | "minimal"
+  | "modern"
+  | "teal"
+  | "chrono"
+  | "functional"
+  | "timeline"
+  | "creative"
+  | "twocol"
+  | "airy";
 
 export type Theme = {
   template: TemplateId;
@@ -62,6 +73,12 @@ export const templates: { id: TemplateId; label: string }[] = [
   { id: "minimal", label: "Minimal" },
   { id: "modern", label: "Moderne" },
   { id: "teal", label: "Arrondi" },
+  { id: "chrono", label: "Chronologique" },
+  { id: "functional", label: "Fonctionnel" },
+  { id: "timeline", label: "Timeline" },
+  { id: "creative", label: "Créatif" },
+  { id: "twocol", label: "2 colonnes" },
+  { id: "airy", label: "Aéré" },
 ];
 
 export const accentColors = [

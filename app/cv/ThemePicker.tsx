@@ -125,6 +125,102 @@ function TemplateThumbnail({ id, color }: { id: string; color: string }) {
       </div>
     );
   }
+  if (id === "chrono") {
+    return (
+      <div className="flex h-full w-full flex-col">
+        <div className="mx-auto h-1.5 w-1/2 rounded" style={{ backgroundColor: color }} />
+        <div className="mt-1 h-px w-full bg-slate-200" />
+        <div className="flex-1 space-y-1 p-1.5">
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="flex gap-1">
+            <div className="h-1 w-1/4 rounded bg-slate-300" />
+            <div className="h-1 flex-1 rounded bg-slate-200" />
+          </div>
+          <div className="flex gap-1">
+            <div className="h-1 w-1/4 rounded bg-slate-300" />
+            <div className="h-1 flex-1 rounded bg-slate-200" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (id === "functional") {
+    return (
+      <div className="flex h-full w-full flex-col space-y-1 p-1.5">
+        <div className="h-1.5 w-2/3 rounded" style={{ backgroundColor: color }} />
+        <div className="h-1 w-full rounded bg-slate-200" />
+        <div className="h-1 w-5/6 rounded bg-slate-200" />
+        <div className="flex flex-col gap-1">
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="h-1 w-4/5 rounded bg-slate-200" />
+        </div>
+      </div>
+    );
+  }
+  if (id === "timeline") {
+    return (
+      <div className="flex h-full w-full flex-col p-1.5">
+        <div className="h-1.5 w-2/3 rounded" style={{ backgroundColor: color }} />
+        <div className="mt-1 flex flex-1 gap-1">
+          <div className="flex w-1/4 flex-col items-center">
+            <div className="h-1 w-1 rounded-full" style={{ backgroundColor: color }} />
+            <div className="w-px flex-1 bg-slate-200" />
+          </div>
+          <div className="flex-1 space-y-1">
+            <div className="h-1 w-full rounded bg-slate-200" />
+            <div className="h-1 w-5/6 rounded bg-slate-200" />
+            <div className="h-1 w-full rounded bg-slate-200" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (id === "creative") {
+    return (
+      <div className="flex h-full w-full flex-col">
+        <div className="flex h-2/5 w-full items-center justify-between bg-slate-900 px-1.5">
+          <div className="h-3 w-3 rounded" style={{ backgroundColor: color }} />
+          <div className="h-1.5 w-1/2 rounded" style={{ backgroundColor: color }} />
+        </div>
+        <div className="flex flex-1 space-y-1 p-1.5">
+          <div className="flex-1">
+            <div className="h-1 w-full rounded bg-slate-200" />
+            <div className="mt-1 h-1 w-full rounded bg-slate-200" />
+          </div>
+          <div className="w-1/3 space-y-1">
+            <div className="h-1 w-full rounded bg-slate-200" />
+            <div className="h-1 w-full rounded bg-slate-200" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (id === "twocol") {
+    return (
+      <div className="flex h-full w-full">
+        <div className="flex-1 space-y-1 border-r border-slate-100 p-1.5">
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="h-1 w-3/4 rounded bg-slate-200" />
+        </div>
+        <div className="w-2/5 space-y-1 bg-slate-50 p-1.5">
+          <div className="h-1 w-full rounded" style={{ backgroundColor: color }} />
+          <div className="h-1 w-full rounded bg-slate-200" />
+          <div className="h-1 w-full rounded bg-slate-200" />
+        </div>
+      </div>
+    );
+  }
+  if (id === "airy") {
+    return (
+      <div className="flex h-full w-full flex-col items-center p-1.5">
+        <div className="h-1 w-3/4 rounded" style={{ backgroundColor: color }} />
+        <div className="mt-1.5 h-1 w-1/2 rounded bg-slate-200" />
+        <div className="mt-1 h-1 w-full rounded bg-slate-200" />
+        <div className="mt-0.5 h-1 w-5/6 rounded bg-slate-200" />
+      </div>
+    );
+  }
   return (
     <div className="h-full w-full space-y-1 p-1.5">
       <div className="h-1.5 w-2/3 rounded" style={{ backgroundColor: color }} />
