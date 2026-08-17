@@ -6,13 +6,14 @@ import { useState } from "react";
 import { useCv } from "./CvContext";
 
 export function Toolbar() {
-  const { data } = useCv();
+  const { data, view } = useCv();
   const [loading, setLoading] = useState(false);
 
   async function downloadPdf() {
     setLoading(true);
     try {
-      const response = await fetch("/api/pdf", {
+      const endpoint = view === "letter" ? "/api/pdf-letter" : "/api/pdf";
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -28,7 +29,7 @@ export function Toolbar() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "cv.pdf";
+      link.download = view === "letter" ? "lettre-de-motivation.pdf" : "cv.pdf";
       link.rel = "noopener";
       document.body.appendChild(link);
       link.click();

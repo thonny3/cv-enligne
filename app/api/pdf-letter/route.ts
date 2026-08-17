@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildPdfHtml } from "./cvHtml";
-import { launchBrowser } from "./browser";
+import { buildLetterHtml } from "../pdf/letterHtml";
+import { launchBrowser } from "../pdf/browser";
 import { emptyCvData } from "../../cv/types";
 
 export const runtime = "nodejs";
@@ -9,13 +9,13 @@ export const maxDuration = 30;
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const data = { ...emptyCvData, ...body };
-  const html = buildPdfHtml(data);
+  const html = buildLetterHtml(data);
 
   let browser;
   try {
     browser = await launchBrowser();
   } catch (error) {
-    console.error("[cv-pdf] Échec du lancement du navigateur :", error);
+    console.error("[letter-pdf] Échec du lancement du navigateur :", error);
     return NextResponse.json(
       { error: "Impossible de lancer le navigateur pour générer le PDF.", details: String(error) },
       { status: 500 },
@@ -39,15 +39,13 @@ export async function POST(request: NextRequest) {
       throw new Error("PDF generation returned an empty document");
     }
 
-    console.log(`[cv-pdf] Taille du PDF généré : ${(pdf.length / 1024).toFixed(1)} Ko (${pdf.length} octets)`);
-
     return new NextResponse(Buffer.from(pdf), {
       headers: {
         "Content-Type": "application/pdf",
       },
     });
   } catch (error) {
-    console.error("[cv-pdf] Échec de la génération du PDF :", error);
+    console.error("[letter-pdf] Échec de la génération du PDF :", error);
     return NextResponse.json(
       { error: "Échec de la génération du PDF.", details: String(error) },
       { status: 500 },

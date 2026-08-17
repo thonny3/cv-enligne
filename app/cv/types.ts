@@ -92,6 +92,35 @@ export const accentColors = [
   "#334155",
 ];
 
+export type LetterTemplateId = "classic" | "modern";
+
+export const letterTemplates: { id: LetterTemplateId; label: string }[] = [
+  { id: "classic", label: "Classique" },
+  { id: "modern", label: "Moderne" },
+];
+
+export type LetterData = {
+  template: LetterTemplateId;
+  date: string;
+  recipientName: string;
+  recipientCompany: string;
+  recipientAddress: string;
+  subject: string;
+  body: string;
+  closing: string;
+};
+
+export const emptyLetterData: LetterData = {
+  template: "classic",
+  date: "",
+  recipientName: "",
+  recipientCompany: "",
+  recipientAddress: "",
+  subject: "",
+  body: "",
+  closing: "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.",
+};
+
 export type CvData = {
   theme: Theme;
   personalInfo: PersonalInfo;
@@ -101,6 +130,7 @@ export type CvData = {
   skills: Skill[];
   languages: Language[];
   hobbies: Hobby[];
+  letter: LetterData;
 };
 
 export const emptyCvData: CvData = {
@@ -125,6 +155,7 @@ export const emptyCvData: CvData = {
   skills: [],
   languages: [],
   hobbies: [],
+  letter: emptyLetterData,
 };
 
 export function createId() {
