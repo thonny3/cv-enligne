@@ -1,16 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
 import { buildPdfHtml } from "./cvHtml";
 import { emptyCvData } from "../../cv/types";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
+
+const isProduction = process.env.NODE_ENV === "production" || !!process.env.VERCEL;
+
+async function launchBrowser() {
+  if (isProduction) {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    const puppeteerCore = await import("puppeteer-core");
+    return puppeteerCore.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    });
+  }
+
+  const puppeteer = await import("puppeteer");
+  return puppeteer.launch({ headless: true });
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const data = { ...emptyCvData, ...body };
   const html = buildPdfHtml(data);
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await launchBrowser();
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 1440, height: 900 });
