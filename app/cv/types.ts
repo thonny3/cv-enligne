@@ -101,6 +101,7 @@ export type CvData = {
   skills: Skill[];
   languages: Language[];
   hobbies: Hobby[];
+  coverLetter: string;
 };
 
 export const emptyCvData: CvData = {
@@ -125,6 +126,7 @@ export const emptyCvData: CvData = {
   skills: [],
   languages: [],
   hobbies: [],
+  coverLetter: "",
 };
 
 export function createId() {
