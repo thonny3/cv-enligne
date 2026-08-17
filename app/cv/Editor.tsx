@@ -1,8 +1,6 @@
 "use client";
 
 import { CvProvider } from "./CvContext";
-import { AutoGenerateForm } from "./forms/AutoGenerateForm";
-import { CoverLetterForm } from "./forms/CoverLetterForm";
 import { EducationForm } from "./forms/EducationForm";
 import { ExperienceForm } from "./forms/ExperienceForm";
 import { HobbiesForm } from "./forms/HobbiesForm";
@@ -21,14 +19,12 @@ export function Editor() {
         <div className="flex flex-1">
           <div className="h-[calc(100vh-4rem)] w-full max-w-xl space-y-6 overflow-y-auto px-6 py-8 lg:w-1/2">
             <ThemePicker />
-            <AutoGenerateForm />
             <PersonalInfoForm />
             <ProfileForm />
             <ExperienceForm />
             <EducationForm />
             <SkillsLanguagesForm />
             <HobbiesForm />
-            <CoverLetterForm />
           </div>
           <div
             id="cv-preview-panel"
