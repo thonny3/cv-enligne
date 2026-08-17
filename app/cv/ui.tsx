@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 export function Section({
   title,
@@ -91,6 +91,53 @@ export function IconButton({
     >
       {label}
     </button>
+  );
+}
+
+export function ImproveTextButton({
+  text,
+  context,
+  onImproved,
+}: {
+  text: string;
+  context?: string;
+  onImproved: (improved: string) => void;
+}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleClick() {
+    if (!text.trim() || loading) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/improve-text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, context }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Échec de l'amélioration");
+      onImproved(data.text);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur inconnue");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-col items-end gap-1">
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading || !text.trim()}
+        className="flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-600 transition hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {loading ? "Amélioration..." : "✨ Améliorer avec l'IA"}
+      </button>
+      {error && <span className="text-xs text-rose-600">{error}</span>}
+    </div>
   );
 }
 

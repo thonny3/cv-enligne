@@ -2,7 +2,7 @@
 
 import { useCv } from "../CvContext";
 import { createId, Experience } from "../types";
-import { AddButton, Field, IconButton, Input, Section, Textarea } from "../ui";
+import { AddButton, Field, IconButton, ImproveTextButton, Input, Section, Textarea } from "../ui";
 
 function emptyExperience(): Experience {
   return {
@@ -85,6 +85,13 @@ export function ExperienceForm() {
               onChange={(e) => update(exp.id, { description: e.target.value })}
             />
           </Field>
+          <div className="flex justify-end">
+            <ImproveTextButton
+              text={exp.description}
+              context={`Description d'une expérience professionnelle : ${exp.title || "poste"} chez ${exp.company || "l'entreprise"}`}
+              onImproved={(improved) => update(exp.id, { description: improved })}
+            />
+          </div>
         </div>
       ))}
       <AddButton label="Ajouter une expérience" onClick={add} />
