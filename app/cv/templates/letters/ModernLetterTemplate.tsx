@@ -29,12 +29,14 @@ export function ModernLetterTemplate({ data }: { data: CvData }) {
       </header>
 
       <main className="flex flex-1 flex-col px-16 py-10">
-        <div className="flex items-start justify-between">
-          <div className="leading-relaxed">
-            {letter.recipientName && <p className="font-medium text-slate-900">{letter.recipientName}</p>}
-            {letter.recipientCompany && <p className="text-slate-500">{letter.recipientCompany}</p>}
+        <div className="flex items-start justify-between gap-6">
+          <div className="min-w-0 leading-relaxed">
+            {letter.recipientName && (
+              <p className="break-words font-medium text-slate-900">{letter.recipientName}</p>
+            )}
+            {letter.recipientCompany && <p className="break-words text-slate-500">{letter.recipientCompany}</p>}
             {letter.recipientAddress && (
-              <p className="whitespace-pre-line text-slate-500">{letter.recipientAddress}</p>
+              <p className="whitespace-pre-line break-words text-slate-500">{letter.recipientAddress}</p>
             )}
           </div>
           <p className="whitespace-nowrap text-slate-400">
@@ -44,18 +46,18 @@ export function ModernLetterTemplate({ data }: { data: CvData }) {
 
         {letter.subject && (
           <p
-            className="mt-8 inline-block w-fit rounded-full px-4 py-1.5 text-xs font-semibold text-white"
+            className="mt-8 inline-block w-fit max-w-full break-words rounded-full px-4 py-1.5 text-xs font-semibold text-white"
             style={{ backgroundColor: color }}
           >
             {letter.subject}
           </p>
         )}
 
-        <div className="mt-6 flex-1 whitespace-pre-line leading-relaxed text-slate-700">
+        <div className="mt-6 flex-1 whitespace-pre-line break-words leading-relaxed text-slate-700">
           {letter.body || "Rédigez ici le contenu de votre lettre de motivation..."}
         </div>
 
-        <p className="mt-8 whitespace-pre-line leading-relaxed text-slate-700">{letter.closing}</p>
+        <p className="mt-8 whitespace-pre-line break-words leading-relaxed text-slate-700">{letter.closing}</p>
 
         <p className="mt-10 font-semibold" style={{ color }}>
           {fullName}

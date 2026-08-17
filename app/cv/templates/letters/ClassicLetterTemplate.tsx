@@ -20,18 +20,20 @@ export function ClassicLetterTemplate({ data }: { data: CvData }) {
 
   return (
     <div className="flex w-[210mm] min-h-[297mm] flex-col bg-white px-16 py-14 text-sm text-slate-800">
-      <div className="flex items-start justify-between">
-        <div className="whitespace-pre-line leading-relaxed">
+      <div className="flex items-start justify-between gap-6">
+        <div className="min-w-0 whitespace-pre-line break-words leading-relaxed">
           <p className="font-semibold text-slate-900">{fullName || "Prénom Nom"}</p>
           {senderAddress && <p className="text-slate-500">{senderAddress}</p>}
           {info.email && <p className="text-slate-500">{info.email}</p>}
           {info.phone && <p className="text-slate-500">{info.phone}</p>}
         </div>
-        <div className="text-right leading-relaxed">
-          {letter.recipientName && <p className="font-medium text-slate-900">{letter.recipientName}</p>}
-          {letter.recipientCompany && <p className="text-slate-500">{letter.recipientCompany}</p>}
+        <div className="min-w-0 text-right leading-relaxed">
+          {letter.recipientName && (
+            <p className="break-words font-medium text-slate-900">{letter.recipientName}</p>
+          )}
+          {letter.recipientCompany && <p className="break-words text-slate-500">{letter.recipientCompany}</p>}
           {letter.recipientAddress && (
-            <p className="whitespace-pre-line text-slate-500">{letter.recipientAddress}</p>
+            <p className="whitespace-pre-line break-words text-slate-500">{letter.recipientAddress}</p>
           )}
         </div>
       </div>
@@ -41,16 +43,16 @@ export function ClassicLetterTemplate({ data }: { data: CvData }) {
       </p>
 
       {letter.subject && (
-        <p className="mt-8 font-semibold text-slate-900" style={{ color }}>
+        <p className="mt-8 break-words font-semibold text-slate-900" style={{ color }}>
           Objet : {letter.subject}
         </p>
       )}
 
-      <div className="mt-6 flex-1 whitespace-pre-line leading-relaxed text-slate-700">
+      <div className="mt-6 flex-1 whitespace-pre-line break-words leading-relaxed text-slate-700">
         {letter.body || "Rédigez ici le contenu de votre lettre de motivation..."}
       </div>
 
-      <p className="mt-8 whitespace-pre-line leading-relaxed text-slate-700">{letter.closing}</p>
+      <p className="mt-8 whitespace-pre-line break-words leading-relaxed text-slate-700">{letter.closing}</p>
 
       <p className="mt-10 text-right font-medium text-slate-900">{fullName}</p>
     </div>

@@ -86,7 +86,7 @@ export function buildLetterHtml(data: CvData): string {
 <head>
 <meta charset="utf-8" />
 <style>
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; overflow-wrap: break-word; word-break: break-word; }
   body { margin: 0; font-family: 'Arial', 'Helvetica', sans-serif; font-size: 13px; color: #1e293b; }
   @page { size: A4; margin: 0; }
 </style>
