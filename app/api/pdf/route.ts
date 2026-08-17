@@ -27,7 +27,17 @@ export async function POST(request: NextRequest) {
   const data = { ...emptyCvData, ...body };
   const html = buildPdfHtml(data);
 
-  const browser = await launchBrowser();
+  let browser;
+  try {
+    browser = await launchBrowser();
+  } catch (error) {
+    console.error("[cv-pdf] Échec du lancement du navigateur :", error);
+    return NextResponse.json(
+      { error: "Impossible de lancer le navigateur pour générer le PDF.", details: String(error) },
+      { status: 500 },
+    );
+  }
+
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 1440, height: 900 });
@@ -52,6 +62,12 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/pdf",
       },
     });
+  } catch (error) {
+    console.error("[cv-pdf] Échec de la génération du PDF :", error);
+    return NextResponse.json(
+      { error: "Échec de la génération du PDF.", details: String(error) },
+      { status: 500 },
+    );
   } finally {
     await browser.close();
   }
