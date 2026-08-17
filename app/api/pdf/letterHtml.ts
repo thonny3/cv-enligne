@@ -69,9 +69,7 @@ export function buildLetterHtml(data: CvData): string {
     }
     ${
       letter.subject
-        ? modern
-          ? `<p style="margin-top:32px;display:inline-block;padding:6px 16px;border-radius:9999px;background:${color};color:#fff;font-size:11px;font-weight:600;">${esc(letter.subject)}</p>`
-          : `<p style="margin-top:32px;font-weight:600;color:${color};">Objet : ${esc(letter.subject)}</p>`
+        ? `<p style="margin-top:32px;font-weight:600;color:#0f172a;">Objet : ${esc(letter.subject)}</p>`
         : ""
     }
     <div style="margin-top:24px;line-height:1.7;color:#334155;">

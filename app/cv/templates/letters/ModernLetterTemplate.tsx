@@ -45,12 +45,7 @@ export function ModernLetterTemplate({ data }: { data: CvData }) {
         </div>
 
         {letter.subject && (
-          <p
-            className="mt-8 inline-block w-fit max-w-full break-words rounded-full px-4 py-1.5 text-xs font-semibold text-white"
-            style={{ backgroundColor: color }}
-          >
-            {letter.subject}
-          </p>
+          <p className="mt-8 break-words font-semibold text-slate-900">Objet : {letter.subject}</p>
         )}
 
         <div className="mt-6 flex-1 whitespace-pre-line break-words leading-relaxed text-slate-700">

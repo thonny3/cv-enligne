@@ -12,7 +12,6 @@ function formatLetterDate(value: string) {
 export function ClassicLetterTemplate({ data }: { data: CvData }) {
   const info = data.personalInfo;
   const letter = data.letter;
-  const color = data.theme.color;
   const fullName = [info.firstName, info.lastName].filter(Boolean).join(" ");
   const senderAddress = [info.address, [info.postalCode, info.city].filter(Boolean).join(" ")]
     .filter(Boolean)
@@ -43,9 +42,7 @@ export function ClassicLetterTemplate({ data }: { data: CvData }) {
       </p>
 
       {letter.subject && (
-        <p className="mt-8 break-words font-semibold text-slate-900" style={{ color }}>
-          Objet : {letter.subject}
-        </p>
+        <p className="mt-8 break-words font-semibold text-slate-900">Objet : {letter.subject}</p>
       )}
 
       <div className="mt-6 flex-1 whitespace-pre-line break-words leading-relaxed text-slate-700">
