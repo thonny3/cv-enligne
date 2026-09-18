@@ -59,9 +59,9 @@ export function TealTemplate({ data }: { data: CvData }) {
               Compétences
             </h2>
             {data.skills.map((s) => (
-              <div key={s.id} className="flex items-center justify-between gap-2">
-                <p className="truncate">{s.name}</p>
-                <LevelDots level={s.level} color="#ffffff" />
+              <div key={s.id}>
+                {s.category && <p className="font-semibold">{s.category}</p>}
+                {s.items && <p className="text-white/85">{s.items}</p>}
               </div>
             ))}
           </div>

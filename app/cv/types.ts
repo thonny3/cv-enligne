@@ -34,8 +34,8 @@ export type Education = {
 
 export type Skill = {
   id: string;
-  name: string;
-  level: number;
+  category: string;
+  items: string;
 };
 
 export type Language = {

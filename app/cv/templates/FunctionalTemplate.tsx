@@ -48,18 +48,28 @@ export function FunctionalTemplate({ data }: { data: CvData }) {
           </section>
         )}
 
-        {(data.skills.length > 0 || data.languages.length > 0) && (
+        {data.skills.length > 0 && (
           <section className="mb-7">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wider" style={{ color }}>
               Compétences clés
             </h2>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+            <div className="space-y-1.5">
               {data.skills.map((s) => (
-                <div key={s.id} className="flex items-center gap-3">
-                  <span className="w-32 shrink-0 text-sm text-slate-700">{s.name}</span>
-                  <LevelBar level={s.level} color={color} />
-                </div>
+                <p key={s.id} className="text-sm text-slate-600">
+                  {s.category && <span className="font-semibold text-slate-800">{s.category} : </span>}
+                  {s.items}
+                </p>
               ))}
+            </div>
+          </section>
+        )}
+
+        {data.languages.length > 0 && (
+          <section className="mb-7">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider" style={{ color }}>
+              Langues
+            </h2>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2">
               {data.languages.map((l) => (
                 <div key={l.id} className="flex items-center gap-3">
                   <span className="w-32 shrink-0 text-sm text-slate-700">{l.name}</span>

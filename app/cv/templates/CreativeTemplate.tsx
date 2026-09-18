@@ -4,14 +4,6 @@ import { CvData } from "../types";
 import { formatDate } from "../format";
 import { BulletList } from "../ui";
 
-function SkillBar({ level, color }: { level: number; color: string }) {
-  return (
-    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
-      <div className="h-full rounded-full" style={{ width: `${level * 20}%`, backgroundColor: color }} />
-    </div>
-  );
-}
-
 export function CreativeTemplate({ data }: { data: CvData }) {
   const { personalInfo: info } = data;
   const color = data.theme.color;
@@ -114,12 +106,12 @@ export function CreativeTemplate({ data }: { data: CvData }) {
               <h2 className="mb-3 text-sm font-extrabold uppercase tracking-wider" style={{ color }}>
                 Compétences
               </h2>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {data.skills.map((s) => (
-                  <div key={s.id} className="flex items-center gap-3">
-                    <span className="w-32 shrink-0 text-sm text-slate-700">{s.name}</span>
-                    <SkillBar level={s.level} color={color} />
-                  </div>
+                  <p key={s.id} className="text-sm text-slate-600">
+                    {s.category && <span className="font-semibold text-slate-800">{s.category} : </span>}
+                    {s.items}
+                  </p>
                 ))}
               </div>
             </section>

@@ -96,12 +96,12 @@ export function AiryTemplate({ data }: { data: CvData }) {
               <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.3em]" style={{ color }}>
                 Compétences
               </h2>
-              <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-slate-600">
+              <div className="space-y-1.5 text-sm text-slate-600">
                 {data.skills.map((s) => (
-                  <span key={s.id} className="flex items-center">
-                    <span className="mr-1.5 inline-block h-1 w-1 rounded-full" style={{ backgroundColor: color }} />
-                    {s.name}
-                  </span>
+                  <p key={s.id}>
+                    {s.category && <span className="font-semibold text-slate-800">{s.category} : </span>}
+                    {s.items}
+                  </p>
                 ))}
               </div>
             </section>

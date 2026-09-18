@@ -106,9 +106,12 @@ export function MinimalTemplate({ data }: { data: CvData }) {
             <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.15em]" style={{ color }}>
               Compétences
             </h2>
-            <ul className="space-y-1 text-sm text-slate-600">
+            <ul className="space-y-1.5 text-sm text-slate-600">
               {data.skills.map((s) => (
-                <li key={s.id}>{s.name}</li>
+                <li key={s.id}>
+                  {s.category && <span className="font-semibold text-slate-800">{s.category} : </span>}
+                  {s.items}
+                </li>
               ))}
             </ul>
           </section>

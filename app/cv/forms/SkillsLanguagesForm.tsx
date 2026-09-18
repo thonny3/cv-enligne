@@ -27,7 +27,7 @@ export function SkillsLanguagesForm() {
   const { data, setData } = useCv();
 
   function addSkill() {
-    const skill: Skill = { id: createId(), name: "", level: 3 };
+    const skill: Skill = { id: createId(), category: "", items: "" };
     setData((prev) => ({ ...prev, skills: [...prev.skills, skill] }));
   }
   function updateSkill(id: string, patch: Partial<Skill>) {
@@ -56,19 +56,24 @@ export function SkillsLanguagesForm() {
 
   return (
     <>
-      <Section title="Compétences" subtitle="Vos compétences clés et leur niveau de maîtrise">
+      <Section title="Compétences" subtitle="Regroupez vos compétences par catégorie">
         {data.skills.map((skill) => (
           <div key={skill.id} className="flex items-center gap-3">
             <Input
-              placeholder="Ex : Gestion de projet"
-              value={skill.name}
-              onChange={(e) => updateSkill(skill.id, { name: e.target.value })}
+              placeholder="Ex : Langages & Front-end"
+              value={skill.category}
+              onChange={(e) => updateSkill(skill.id, { category: e.target.value })}
+              className="w-56 shrink-0"
             />
-            <LevelSlider value={skill.level} onChange={(level) => updateSkill(skill.id, { level })} />
+            <Input
+              placeholder="Ex : JavaScript, HTML5, CSS3, React"
+              value={skill.items}
+              onChange={(e) => updateSkill(skill.id, { items: e.target.value })}
+            />
             <IconButton label="✕" variant="danger" onClick={() => removeSkill(skill.id)} />
           </div>
         ))}
-        <AddButton label="Ajouter une compétence" onClick={addSkill} />
+        <AddButton label="Ajouter une catégorie de compétences" onClick={addSkill} />
       </Section>
 
       <Section title="Langues" subtitle="Les langues que vous parlez et votre niveau">

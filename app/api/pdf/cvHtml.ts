@@ -35,6 +35,33 @@ function levelDots(level: number, color: string, empty: string): string {
   return html;
 }
 
+function skillCategoryList(
+  skills: CvData["skills"],
+  categoryColor: string,
+  itemsColor: string
+): string {
+  return `<div style="display:flex;flex-direction:column;gap:8px;">
+    ${skills
+      .map(
+        (s) => `<div>
+          ${
+            s.category
+              ? `<p style="margin:0;font-weight:600;color:${categoryColor};">${esc(
+                  s.category
+                )}</p>`
+              : ""
+          }
+          ${
+            s.items
+              ? `<p style="margin:2px 0 0;color:${itemsColor};">${esc(s.items)}</p>`
+              : ""
+          }
+        </div>`
+      )
+      .join("")}
+  </div>`;
+}
+
 function sectionHeading(text: string, color: string, spacing = "0.15em"): string {
   return `<h2 style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:${spacing};color:${color};margin:0 0 10px;">${text}</h2>`;
 }
@@ -149,18 +176,7 @@ function skillsLanguages(data: CvData, color: string): string {
   const skills = data.skills.length
     ? `<section>
         ${sectionHeading("Compétences", color)}
-        <div style="display:flex;flex-wrap:wrap;gap:6px 14px;">
-          ${data.skills
-            .map(
-              (s) =>
-                `<span style="display:inline-flex;align-items:center;font-size:13px;color:#475569;white-space:nowrap;">
-                  <span style="width:6px;height:6px;border-radius:9999px;background:${color};margin-right:6px;"></span>${esc(
-                  s.name
-                )}
-                </span>`
-            )
-            .join("")}
-        </div>
+        <div style="font-size:13px;">${skillCategoryList(data.skills, "#1e293b", "#475569")}</div>
       </section>`
     : "";
   const languages = data.languages.length
@@ -276,21 +292,7 @@ function sidebarHtml(data: CvData): string {
         data.skills.length
           ? `<div style="margin-top:32px;font-size:11px;">
               ${sectionHeading("Compétences", color, "0.08em")}
-              ${data.skills
-                .map(
-                  (s) =>
-                    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
-                      <p style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(
-                        s.name
-                      )}</p>
-                      <div style="flex-shrink:0;">${levelDots(
-                        s.level,
-                        color,
-                        "#334155"
-                      )}</div>
-                    </div>`
-                )
-                .join("")}
+              ${skillCategoryList(data.skills, "#f1f5f9", "#cbd5e1")}
             </div>`
           : ""
       }
@@ -489,7 +491,14 @@ function modernHtml(data: CvData): string {
         ${educationBlock(data, color)}
       </main>
       <aside style="width:62mm;flex-shrink:0;border-left:1px solid #f1f5f9;padding:28px 24px;">
-        ${asideList("Compétences", data.skills.map((s) => s.name))}
+        ${
+          data.skills.length
+            ? `<div style="margin:0 0 24px;">
+                ${sectionHeading("Compétences", color)}
+                ${skillCategoryList(data.skills, "#1e293b", "#475569")}
+              </div>`
+            : ""
+        }
         ${asideList("Langues", data.languages.map((l) => l.name))}
         ${asideList("Loisirs", data.hobbies.map((h) => h.name))}
       </aside>
@@ -543,21 +552,7 @@ function tealHtml(data: CvData): string {
         data.skills.length
           ? `<div style="width:100%;margin-top:32px;font-size:11px;">
               ${asideHeading("Compétences")}
-              ${data.skills
-                .map(
-                  (s) =>
-                    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
-                      <p style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(
-                        s.name
-                      )}</p>
-                      <div style="flex-shrink:0;">${levelDots(
-                        s.level,
-                        "#ffffff",
-                        "rgba(255,255,255,0.3)"
-                      )}</div>
-                    </div>`
-                )
-                .join("")}
+              ${skillCategoryList(data.skills, "#ffffff", "rgba(255,255,255,0.85)")}
             </div>`
           : ""
       }
@@ -759,7 +754,7 @@ function chronoHtml(data: CvData): string {
                   ? `<section>${sectionHeading(
                       "Compétences",
                       color
-                    )}${inlineChips(data.skills.map((s) => s.name), color)}</section>`
+                    )}${skillCategoryList(data.skills, "#1e293b", "#475569")}</section>`
                   : ""
               }
               ${
@@ -783,17 +778,6 @@ function functionalHtml(data: CvData): string {
   const name = fullName(data) || "Prénom Nom";
   const contact = contactLine(data);
 
-  const skillRows = data.skills
-    .map(
-      (s) =>
-        `<div style="display:flex;align-items:center;gap:12px;">
-          <span style="width:128px;flex-shrink:0;font-size:13px;color:#334155;">${esc(
-            s.name
-          )}</span>
-          ${levelBar(s.level, color, "#e2e8f0")}
-        </div>`
-    )
-    .join("");
   const languageRows = data.languages
     .map(
       (l) =>
@@ -886,11 +870,19 @@ function functionalHtml(data: CvData): string {
           : ""
       }
       ${
-        skillRows || languageRows
+        data.skills.length
           ? `<section style="margin:0 0 28px;">
               ${sectionHeading("Compétences clés", color)}
+              ${skillCategoryList(data.skills, "#1e293b", "#475569")}
+            </section>`
+          : ""
+      }
+      ${
+        languageRows
+          ? `<section style="margin:0 0 28px;">
+              ${sectionHeading("Langues", color)}
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 32px;">
-                ${skillRows}${languageRows}
+                ${languageRows}
               </div>
             </section>`
           : ""
@@ -1011,7 +1003,7 @@ function timelineHtml(data: CvData): string {
                   ? `<section>${sectionHeading(
                       "Compétences",
                       color
-                    )}${inlineChips(data.skills.map((s) => s.name), color)}</section>`
+                    )}${skillCategoryList(data.skills, "#1e293b", "#475569")}</section>`
                   : ""
               }
               ${
@@ -1034,22 +1026,6 @@ function creativeHtml(data: CvData): string {
   const color = data.theme.color;
   const name = fullName(data) || "Prénom Nom";
   const info = data.personalInfo;
-
-  const skillBars = data.skills
-    .map(
-      (s) =>
-        `<div style="display:flex;align-items:center;gap:12px;">
-          <span style="width:128px;flex-shrink:0;font-size:13px;color:#334155;">${esc(
-            s.name
-          )}</span>
-          <div style="flex:1;height:6px;border-radius:9999px;background:#e2e8f0;">
-            <div style="height:100%;border-radius:9999px;width:${
-              s.level * 20
-            }%;background:${color};"></div>
-          </div>
-        </div>`
-    )
-    .join("");
 
   const experienceItems = data.experiences
     .map((exp) => {
@@ -1183,7 +1159,7 @@ function creativeHtml(data: CvData): string {
           data.skills.length
             ? `<section>
                 ${sectionHeading("Compétences", color)}
-                <div style="display:flex;flex-direction:column;gap:8px;">${skillBars}</div>
+                ${skillCategoryList(data.skills, "#1e293b", "#475569")}
               </section>`
             : ""
         }
@@ -1258,7 +1234,7 @@ function twocolHtml(data: CvData): string {
         data.skills.length
           ? `<div style="margin:0 0 28px;">
               ${sectionHeading("Compétences", color)}
-              ${inlineChips(data.skills.map((s) => s.name), color)}
+              ${skillCategoryList(data.skills, "#1e293b", "#475569")}
             </div>`
           : ""
       }
@@ -1400,7 +1376,7 @@ function airyHtml(data: CvData): string {
                       "Compétences",
                       color,
                       "0.3em"
-                    )}${inlineChips(data.skills.map((s) => s.name), color, "4px")}</section>`
+                    )}${skillCategoryList(data.skills, "#1e293b", "#475569")}</section>`
                   : ""
               }
               ${

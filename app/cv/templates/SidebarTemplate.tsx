@@ -124,9 +124,9 @@ export function SidebarTemplate({ data }: { data: CvData }) {
               Compétences
             </h2>
             {data.skills.map((s) => (
-              <div key={s.id} className="flex items-center justify-between gap-2">
-                <p className="truncate">{s.name}</p>
-                <LevelDots level={s.level} color={color} mutedClass="bg-slate-700" />
+              <div key={s.id}>
+                {s.category && <p className="font-semibold text-slate-100">{s.category}</p>}
+                {s.items && <p className="text-slate-300">{s.items}</p>}
               </div>
             ))}
           </div>
