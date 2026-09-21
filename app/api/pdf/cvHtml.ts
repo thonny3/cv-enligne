@@ -538,15 +538,9 @@ function tealHtml(data: CvData): string {
       }
       <div style="width:100%;margin-top:32px;font-size:11px;">
         ${asideHeading("Contact")}
-        ${
-          info.email
-            ? `<p style="margin:0 0 8px;word-break:break-all;">${esc(
-                info.email
-              )}</p>`
-            : ""
-        }
-        ${info.phone ? `<p style="margin:0 0 8px;">${esc(info.phone)}</p>` : ""}
-        ${address ? `<p style="margin:0;">${esc(address)}</p>` : ""}
+        ${info.email ? contactLineWithIcon(info.email, "mail", "#ffffff") : ""}
+        ${info.phone ? contactLineWithIcon(info.phone, "phone", "#ffffff") : ""}
+        ${address ? contactLineWithIcon(address, "pin", "#ffffff") : ""}
       </div>
       ${
         data.skills.length
